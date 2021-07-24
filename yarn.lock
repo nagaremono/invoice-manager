@@ -113,6 +113,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dotenv-safe@npm:^8.1.2":
+  version: 8.1.2
+  resolution: "@types/dotenv-safe@npm:8.1.2"
+  dependencies:
+    dotenv: ^8.2.0
+  checksum: 1545290ef61bcf55844d795bff419891490583eb06ae755b82b775d3c6e9944079da002790007aaddfde75cab3ddeeecef2a96e63acc5045a8aecc0da16e8155
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.24
   resolution: "@types/express-serve-static-core@npm:4.17.24"
@@ -610,6 +619,22 @@ __metadata:
   dependencies:
     esutils: ^2.0.2
   checksum: 2eae469bd2889ceee9892083a67340b3622568fe5290edce620e5d5ddab23d644b2a780e9a7c68ad9c8a62716a70c5e484402ac93a398fa78b54b7505592aa7f
+  languageName: node
+  linkType: hard
+
+"dotenv-safe@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "dotenv-safe@npm:8.2.0"
+  dependencies:
+    dotenv: ^8.2.0
+  checksum: 8525ceed5a8ae4a4b9264080a3ad1550cb4c5d8d5990b4772fd62a6d245c01a01f77a540bab4fb16ae0513d9ea804cbaa6d19acb370b5bc68f2d103813c2eb2e
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^8.2.0":
+  version: 8.6.0
+  resolution: "dotenv@npm:8.6.0"
+  checksum: f4649999a157061dd169118f459d88db56380b2eef68e87fa9de7201796e5f6d94fa337658d7e148f404b48652a0eefe11222d9eba0cd464497911ae56cd6f93
   languageName: node
   linkType: hard
 
@@ -1149,10 +1174,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "invoice-manager@workspace:."
   dependencies:
+    "@types/dotenv-safe": ^8.1.2
     "@types/express": ^4.17.13
     "@types/node": ^16.4.1
     "@typescript-eslint/eslint-plugin": ^4.28.4
     "@typescript-eslint/parser": ^4.28.4
+    dotenv-safe: ^8.2.0
     eslint: ^7.31.0
     eslint-config-prettier: ^8.3.0
     express: ^4.17.1
