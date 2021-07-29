@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username         String      @db.VarChar(255)
+  email            String      @unique @db.VarChar(255)
+  password         String      @db.VarChar(500)
+  createdAt        DateTime    @default(now()) @db.Timestamptz
+  updatedAt        DateTime    @updatedAt @db.Timestamptz
+  RoleGroup        RoleGroup[]
+  servedInvoice    Invoice[]   @relation("SalesPerson")
+  purchaseInvoices Invoice[]   @relation("Customer")
+}
+
+model Role {
+  id        Int         @id @default(autoincrement())
+  name      String      @db.VarChar(255)
+  RoleGroup RoleGroup[]
+}
+
+model RoleGroup {
+  userId String @db.Uuid
+  roleId Int
+  user   User   @relation(fields: [userId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model Product {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String   @db.VarChar(500)
+  manufacturer String   @db.VarChar(500)
+  pictures     Json     @db.JsonB
+  stock        BigInt
+  price        BigInt
+  createdAt    DateTime @default(now()) @db.Timestamptz
+  updatedAt    DateTime @updatedAt @db.Timestamptz
+}
+
+model SoldItem {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String   @db.VarChar(255)
+  manufacturer String   @db.VarChar(255)
+  pictures     Json     @db.JsonB
+  quantity     BigInt
+  priceEach    BigInt
+  createdAt    DateTime @default(now()) @db.Timestamptz
+  currency     String   @db.VarChar(255)
+  invoiceId    String   @db.Uuid
+  invoice      Invoice  @relation(fields: [invoiceId], references: [id])
+}
+
+model Invoice {
+  id              String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId      String     @db.Uuid
+  salesPersonId   String     @db.Uuid
+  transactionDate DateTime   @default(now()) @db.Timestamptz
+  totalAmount     BigInt
+  notes           String?
+  amountPaid      BigInt
+  currency        String     @db.VarChar(255)
+  soldItem        SoldItem[]
+  salesPerson     User       @relation(name: "SalesPerson", fields: [salesPersonId], references: [id])
+  customer        User       @relation(name: "Customer", fields: [customerId], references: [id])
+}
