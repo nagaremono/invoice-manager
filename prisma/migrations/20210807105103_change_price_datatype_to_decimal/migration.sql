@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "Invoice" ALTER COLUMN "totalAmount" SET DATA TYPE DECIMAL(19,4),
+ALTER COLUMN "amountPaid" SET DATA TYPE DECIMAL(19,4);
+
+-- AlterTable
+ALTER TABLE "Product" ALTER COLUMN "price" SET DATA TYPE DECIMAL(19,4);
+
+-- AlterTable
+ALTER TABLE "SoldItem" ALTER COLUMN "priceEach" SET DATA TYPE DECIMAL(19,4);
