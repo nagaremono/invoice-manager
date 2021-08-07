@@ -4,6 +4,19 @@ import faker from 'faker';
 const prisma = new PrismaClient();
 
 async function main() {
+  for (const {
+    tablename,
+  } of await prisma.$queryRaw`SELECT tablename FROM pg_tables WHERE schemaname='public'`) {
+    if (tablename !== '_prisma_migrations') {
+      try {
+        await prisma.$queryRaw(
+          `TRUNCATE TABLE "public"."${tablename}" CASCADE;`
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
   const salesPersonRole = await prisma.role.create({
     data: {
       name: 'sales_person',
@@ -71,7 +84,7 @@ async function main() {
           faker.company.companyName() + ' ' + faker.company.companySuffix(),
         name: faker.commerce.productName(),
         pictures: [faker.random.image()],
-        price: parseFloat(faker.commerce.price(5e3, 1e6, 2)) * 100,
+        price: BigInt(parseFloat(faker.commerce.price(5e3, 1e6, 2)) * 100),
         stock: faker.datatype.number(1000),
       },
     });
@@ -84,8 +97,8 @@ async function main() {
     await prisma.invoice.create({
       data: {
         currency: 'IDR',
-        totalAmount: prd.price * boughtQuantity,
-        amountPaid: prd.price * boughtQuantity,
+        totalAmount: prd.price * BigInt(boughtQuantity),
+        amountPaid: prd.price * BigInt(boughtQuantity),
         customer: {
           connect: { id: customers[getRandomInt(0, customers.length)].id },
         },

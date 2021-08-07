@@ -1,3 +1,4 @@
+import './utils/prototypeExt';
 import { ENV } from './config/env';
 import { app } from './modules/express';
 import logger from './utils/logger';
