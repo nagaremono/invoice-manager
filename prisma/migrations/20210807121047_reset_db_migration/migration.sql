@@ -1,5 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -34,7 +32,7 @@ CREATE TABLE "Product" (
     "name" VARCHAR(500) NOT NULL,
     "manufacturer" VARCHAR(500) NOT NULL,
     "pictures" JSONB NOT NULL,
-    "stock" BIGINT NOT NULL,
+    "stock" INTEGER NOT NULL,
     "price" BIGINT NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMPTZ NOT NULL,
@@ -48,7 +46,7 @@ CREATE TABLE "SoldItem" (
     "name" VARCHAR(255) NOT NULL,
     "manufacturer" VARCHAR(255) NOT NULL,
     "pictures" JSONB NOT NULL,
-    "quantity" BIGINT NOT NULL,
+    "quantity" INTEGER NOT NULL,
     "priceEach" BIGINT NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "currency" VARCHAR(255) NOT NULL,

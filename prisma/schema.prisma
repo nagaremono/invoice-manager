@@ -43,7 +43,7 @@ model Product {
   manufacturer String   @db.VarChar(500)
   pictures     Json     @db.JsonB
   stock        Int      @db.Integer
-  price        Decimal  @db.Decimal(19, 4)
+  price        BigInt   @db.BigInt
   createdAt    DateTime @default(now()) @db.Timestamptz
   updatedAt    DateTime @updatedAt @db.Timestamptz
 }
@@ -54,7 +54,7 @@ model SoldItem {
   manufacturer String   @db.VarChar(255)
   pictures     Json     @db.JsonB
   quantity     Int
-  priceEach    Decimal  @db.Decimal(19, 4)
+  priceEach    BigInt   @db.BigInt
   createdAt    DateTime @default(now()) @db.Timestamptz
   currency     String   @db.VarChar(255)
   invoiceId    String   @db.Uuid
@@ -66,9 +66,9 @@ model Invoice {
   customerId      String     @db.Uuid
   salesPersonId   String     @db.Uuid
   transactionDate DateTime   @default(now()) @db.Timestamptz
-  totalAmount     Decimal    @db.Decimal(19, 4)
+  totalAmount     BigInt     @db.BigInt
   notes           String?
-  amountPaid      Decimal    @db.Decimal(19, 4)
+  amountPaid      BigInt     @db.BigInt
   currency        String     @db.VarChar(255)
   soldItem        SoldItem[]
   salesPerson     User       @relation(name: "SalesPerson", fields: [salesPersonId], references: [id])
